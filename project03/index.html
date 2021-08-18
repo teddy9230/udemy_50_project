@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>project03-進度條</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-image: linear-gradient(135deg, #ce9ffc 10%, #7367f0 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Roboto";
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      .wrap {
+        text-align: center;
+      }
+
+      .wrap .progress-wrap {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin-bottom: 30px;
+        max-width: 100%;
+        width: 350px;
+      }
+
+      .wrap .progress-wrap::before {
+        content: "";
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        height: 5px;
+        width: 100%;
+        z-index: -1;
+        transform: translateY(-50%);
+      }
+
+      .progress {
+        background-color: #0396ff;
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        height: 4px;
+        width: 0%;
+        transform: translateY(-50%);
+        z-index: -1;
+        transition: 0.4s ease;
+      }
+
+      .wrap .progress-wrap .circle {
+        background-color: #fff;
+        color: #999;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        border: 3px solid #e0e0e0;
+        transition: 0.4 ease;
+      }
+
+      .wrap .progress-wrap .circle.active {
+        border-color: #0396ff;
+      }
+
+      .wrap .btn {
+        background-color: #0396ff;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        padding: 8px 30px;
+        margin: 5px;
+        font-size: 14px;
+      }
+
+      .wrap .btn:active {
+        transform: scale(0.98);
+      }
+
+      .wrap .btn:focus {
+        outline: 0px;
+      }
+
+      .wrap .btn:disabled {
+        background-color: #e0e0e0;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="progress-wrap">
+        <div class="progress" id="progress"></div>
+        <div class="circle active">1</div>
+        <div class="circle">2</div>
+        <div class="circle">3</div>
+        <div class="circle">4</div>
+      </div>
+
+      <button class="btn" id="prev" disabled>上一個</button>
+      <button class="btn" id="next">下一個</button>
+    </div>
+
+    <script>
+      const progress = document.getElementById("progress");
+      const prev = document.getElementById("prev");
+      const next = document.getElementById("next");
+
+      const circles = document.querySelectorAll(".circle");
+      // console.log(circles.length);
+
+      let currentActive = 1;
+
+      prev.addEventListener("click", () => {
+        currentActive--;
+        // console.log(currentActive);
+        if (currentActive < 1) {
+          currentActive = 1;
+        }
+        // console.log(currentActive);
+
+        update();
+      });
+
+      next.addEventListener("click", () => {
+        currentActive++;
+        console.log(currentActive);
+        if (currentActive > circles.length) {
+          currentActive = circles.length;
+        }
+        // console.log(currentActive);
+
+        update();
+      });
+
+      function update() {
+        circles.forEach((circle, idx) => {
+          if (idx < currentActive) {
+            circle.classList.add("active");
+          } else {
+            circle.classList.remove("active");
+          }
+        });
+
+        const actives = document.querySelectorAll(".active");
+
+        // console.log(actives.length, circles.length);
+        // 進度條總長度4
+        // 圓圈初始值1 2 3 最多為4
+
+        // console.log((actives.length / circles.length) * 100);
+        // 進度條總長度4
+        // 圓圈初始值1 2 3 最多為4
+        // 0.5 => 50 0.75=>75 1 => 100
+
+        progress.style.width =
+          ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
+
+        if (currentActive === 1) {
+          prev.disabled = true;
+        } else if (currentActive === circles.length) {
+          next.disabled = true;
+        } else {
+          prev.disabled = false;
+          next.disabled = false;
+        }
+      }
+    </script>
+  </body>
+</html>

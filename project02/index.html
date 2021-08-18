@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>project02-垂直卡片展開</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto";
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      .wrap {
+        display: flex;
+        width: 90vw;
+      }
+
+      .wrap .item {
+        background-size: auto 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 80vh;
+        border-radius: 50px;
+        color: #ffffff;
+        cursor: pointer;
+        flex: 0.5;
+        margin: 10px;
+        position: relative;
+        transition: flex 0.7s ease-in;
+      }
+
+      .wrap .item h3 {
+        font-size: 24px;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        opacity: 0;
+      }
+
+      .wrap .item.active {
+        flex: 5;
+      }
+
+      .wrap .item.active h3 {
+        opacity: 1;
+        transition: opacity 0.3s ease-in 0.4s;
+      }
+
+      @media (max-width: 800px) {
+        .wrap {
+          width: 100vw;
+        }
+        .wrap .item:nth-of-type(4),
+        .item:nth-of-type(5) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div
+        class="item active"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+        "
+      >
+        <h3>圖片一</h3>
+      </div>
+      <div
+        class="item"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+        "
+      >
+        <h3>圖片二</h3>
+      </div>
+      <div
+        class="item"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80');
+        "
+      >
+        <h3>圖片三</h3>
+      </div>
+      <div
+        class="item"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80');
+        "
+      >
+        <h3>圖片四</h3>
+      </div>
+      <div
+        class="item"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+        "
+      >
+        <h3>圖片五</h3>
+      </div>
+    </div>
+    <script>
+      const items = document.querySelectorAll(".item");
+      // console.log(item[1]);
+      items.forEach((item) => {
+        // console.log(item);
+        item.addEventListener("click", () => {
+          console.log("123");
+          removeActive();
+          item.classList.add("active");
+        });
+      });
+
+      function removeActive() {
+        items.forEach((item) => {
+          item.classList.remove("active");
+        });
+      }
+    </script>
+  </body>
+</html>
